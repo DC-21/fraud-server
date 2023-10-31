@@ -46,23 +46,39 @@ const req = https.request(options, function (res) {
   });
 });
 
+const destinations = [
+  { "to": "+260779788231" },
+  { "to": "+260972907173" },
+];
+
 const postData = JSON.stringify({
-  "messages": [
-    {
-      "destinations": [
-        {
-          "to": "+260972907173"
-        }
-      ],
-      "from": "InfoSMS",
-      "text": "ba emma laka"
-    }
-  ]
+  "messages": destinations.map(destination => ({
+    "destinations": [destination],
+    "from": "code",
+    "text": "ba king muliche from nodejs"
+  }))
 });
 
 req.write(postData);
 
 req.end();
+
+// async function otpRegen (pre, lenth){
+//   try {
+//     let chars = '1234567890';
+//   var otp =pre;
+//   for(let i=0; i<lenth; i++) {
+//       otp = chars[Math.floor(Math.random()*chars.lenth)]
+//   }
+//   return otp;
+//   } catch (error) {
+    
+//   }
+
+// }
+
+// var otp =otpRegen('otp', 5);
+// console.log(otp);
 
 const port = process.env.PORT || 9000;
 
