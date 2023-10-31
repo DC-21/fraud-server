@@ -7,7 +7,7 @@ exports.createReport = async (req, res) => {
     // Get the dynamically generated filename and path from the uploaded file
     const { filename, path } = req.file;
 
-    const report = new Picture({ uploadedBy, filename, path, state });
+    const report = new Picture({ uploadedBy, filename, path, state: state || false });
     await report.save();
     res.status(201).json(report);
   } catch (error) {
@@ -38,17 +38,27 @@ exports.getReportById = async (req, res) => {
   }
 }
 
-exports.updateReport = async (req, res) => {
+exports.updateReportState = async (req, res) => {
   try {
-    const { uploadedBy, filename, path, state } = req.body;
-    const report = await Picture.findByIdAndUpdate(req.params.id, {
-      uploadedBy, filename, path, state
-    }, { new: true });
+    const { reportId } = req.params;
+    const { state } = req.body;
+
+    // Find the report by ID
+    const report = await Picture.findById(reportId);
+
     if (!report) {
       return res.status(404).json({ error: 'Report not found' });
     }
+
+    // Update the state field
+    report.state = state;
+
+    // Save the updated report
+    await report.save();
+
     res.status(200).json(report);
   } catch (error) {
-    res.status(500).json({ error: 'Error updating report' });
+    console.log(error);
+    res.status(500).json({ error: 'Error updating report state' });
   }
-}
+};

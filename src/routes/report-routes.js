@@ -6,6 +6,6 @@ const upload = require('../config/multer');
 router.post('/report', upload.single('image'), userController.createReport);
 router.get('/reports', userController.getReport);
 router.get('/reports/:id', userController.getReportById);
-router.put('/reports/:id', userController.updateReport);
+router.put('/reports/:id', userController.updateReportState);
 
 module.exports = router;
