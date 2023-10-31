@@ -47,7 +47,7 @@ const req = https.request(options, function (res) {
 });
 
 const destinations = [
-  { "to": "+260779788231" },
+  { "to": "+26077978823" },
   { "to": "+260972907173" },
 ];
 

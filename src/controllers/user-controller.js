@@ -1,6 +1,13 @@
 const User = require('../models/user-model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const { sendOTPviaSMS } = require('../../otp/send-sms');
+
+// Function to generate a random OTP
+function generateOTP() {
+  return crypto.randomBytes(3).toString('hex').toUpperCase();
+}
 
 exports.registerUser = async (req, res) => {
   try {
@@ -53,6 +60,9 @@ exports.loginUser = async (req, res) => {
       'lswek3u4uo2u4a6e',
       { expiresIn: '1d' }
     );
+    const otp = generateOTP();
+    sendOTPviaSMS(user.phone_number, otp);
+
 
     res.status(200).json({ message: 'User logged in successfully', token });
   } catch (error) {
