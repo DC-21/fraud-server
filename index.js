@@ -13,6 +13,7 @@ app.get('/',(req,res)=>{
 app.use('/',require('./src/routes/user-route'));
 app.use('/',require('./src/routes/transaction-routes'));
 app.use('/',require('./src/routes/report-routes'));
+app.use('/',require('./src/routes/admin-routes'));
 
 const port = process.env.PORT || 9000;
 
