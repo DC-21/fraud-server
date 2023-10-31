@@ -7,7 +7,7 @@ exports.addAdmin = async (req, res) => {
     const { username, password, email, full_name, } = req.body;
 
     // Check if the email already exists in the database
-    const existingAdmin = await User.findOne({ email });
+    const existingAdmin = await Admin.findOne({ email });
 
     if (existingAdmin) {
       return res.status(400).json({ error: 'Email already exists' });
@@ -36,7 +36,7 @@ exports.loginAdmin = async (req, res) => {
     }
 
     // Compare the provided password with the stored hashed password
-    const passwordMatch = await bcrypt.compare(password, user.password);
+    const passwordMatch = await bcrypt.compare(password, admin.password);
 
     if (!passwordMatch) {
       return res.status(401).json({ error: 'Invalid password' });
@@ -55,6 +55,7 @@ exports.loginAdmin = async (req, res) => {
 
     res.status(200).json({ message: 'Admin logged in successfully', token });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: 'Admin login failed' });
   }
 };
