@@ -38,6 +38,27 @@ exports.getReportById = async (req, res) => {
   }
 }
 
+exports.getReportsByStateTrue = async (req, res) => {
+  try {
+    const reports = await Picture.find({ state: true });
+    res.status(200).json(reports);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Error fetching reports with state set to true' });
+  }
+};
+
+// Controller for fetching reports with state set to false
+exports.getReportsByStateFalse = async (req, res) => {
+  try {
+    const reports = await Picture.find({ state: false });
+    res.status(200).json(reports);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Error fetching reports with state set to false' });
+  }
+};
+
 exports.updateReportState = async (req, res) => {
   try {
     const { reportId } = req.params;
@@ -52,8 +73,6 @@ exports.updateReportState = async (req, res) => {
 
     // Update the state field
     report.state = state;
-
-    // Save the updated report
     await report.save();
 
     res.status(200).json(report);

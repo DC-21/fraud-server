@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/report-controller');
+const reportsController = require('../controllers/report-controller');
 const upload = require('../config/multer');
 
-router.post('/reports', upload.single('image'), userController.createReport);
-router.get('/reports', userController.getReport);
-router.get('/reports/:id', userController.getReportById);
-router.put('/reports/:reportId', userController.updateReportState);
+router.post('/reports', upload.single('image'), reportsController.createReport);
+router.get('/reports', reportsController.getReport);
+router.get('/reports/:id', reportsController.getReportById);
+router.get('/reports-true', reportsController.getReportsByStateTrue);
+router.get('/reports-false', reportsController.getReportsByStateFalse);
+router.put('/reports/:reportId', reportsController.updateReportState);
 
 module.exports = router;
