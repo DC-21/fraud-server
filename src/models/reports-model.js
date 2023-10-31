@@ -1,26 +1,15 @@
 const mongoose = require('../db/db');
-const Grid = require('gridfs-stream');
-Grid.mongo = mongoose.mongo;
 
-// Create GridFS stream for uploading images using the existing Mongoose connection
-const gfs = Grid(mongoose.connection.db);
-
-const scamReportSchema = new mongoose.Schema({
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-  account_number: {
-    type: String,
-    required: true,
-  },
-  user: {
+const reportSchema = new mongoose.Schema({
+  uploadedBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
+    ref: 'User'
   },
+  filename: String,
+  path: String,
+  state: Boolean,
+  uploadDate: { type: Date, default: Date.now }
 });
 
-const ScamReport = mongoose.model('ScamReport', scamReportSchema);
-
-module.exports = { ScamReport, gfs };
+const Picture = mongoose.model('Report', reportSchema);
+module.exports = Picture;

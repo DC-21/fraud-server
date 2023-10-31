@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
   transactions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Transaction' }],
 
   // Relationship with Income
-  reports: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ScamReport' }]
+  reports: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Report' }]
 });
 
 module.exports = mongoose.model('User', userSchema);
