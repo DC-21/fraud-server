@@ -23,7 +23,7 @@ function sendOTPviaSMS(phoneNumber, otp) {
             "to": phoneNumber
           }
         ],
-        "from": "InfoSMS",
+        "from": "Fraud Web",
         "text": message
       }
     ]

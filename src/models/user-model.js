@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
   },
   email: String,
   balance: Number,
+  otp:String,
 
   // Relationship with Expense
   transactions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Transaction' }],
